@@ -77,10 +77,6 @@
             transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
-        .profile-pic:hover {
-            transform: scale(1.1) rotate(5deg);
-        }
-
         h1 {
             font-size: clamp(2.5rem, 5vw, 4rem); 
             font-weight: 800;
@@ -91,7 +87,6 @@
             letter-spacing: -1px;
         }
 
-        /* Typing Effect */
         .typing-container {
             font-family: 'JetBrains Mono', monospace;
             font-size: clamp(1rem, 2.5vw, 1.2rem);
@@ -157,23 +152,17 @@
         .glass-card {
             background: var(--card-bg);
             backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
             border: 1px solid var(--card-border);
             border-radius: 16px;
             padding: 2rem;
             transition: all 0.4s ease;
         }
 
-        .glass-card:hover {
-            border-color: rgba(6, 182, 212, 0.4);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-        }
-
-        /* --- EXPERIENCE --- */
+        /* --- TIMELINE --- */
         .timeline {
             display: flex;
             flex-direction: column;
-            gap: 1.5rem;
+            gap: 2.5rem;
         }
 
         .job-item {
@@ -194,9 +183,19 @@
             box-shadow: 0 0 10px var(--accent-cyan);
         }
 
-        .job-title { color: var(--text-main); font-size: 1.3rem; font-weight: 600; }
-        .job-date { color: var(--accent-blue); font-family: 'JetBrains Mono', monospace; font-size: 0.9rem; margin-bottom: 0.5rem; }
-        .job-desc { color: var(--text-muted); font-size: 0.95rem; }
+        .job-title { color: var(--text-main); font-size: 1.3rem; font-weight: 600; margin-bottom: 0.2rem; }
+        .job-company { color: var(--accent-cyan); font-weight: 600; font-size: 1rem; margin-bottom: 0.2rem; }
+        .job-date { color: var(--accent-blue); font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; margin-bottom: 1rem; }
+        
+        .job-bullets { margin-left: 1.2rem; color: var(--text-muted); font-size: 0.95rem; list-style-type: none; }
+        .job-bullets li { position: relative; margin-bottom: 0.8rem; }
+        .job-bullets li::before {
+            content: "▹";
+            position: absolute;
+            left: -1.2rem;
+            color: var(--accent-cyan);
+        }
+        .job-bullets strong { color: var(--text-main); }
 
         /* --- PROJECTS GRID --- */
         .projects-grid {
@@ -213,17 +212,6 @@
             overflow: hidden;
         }
 
-        .project-card::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 4px;
-            background: linear-gradient(90deg, var(--accent-cyan), var(--accent-blue));
-            transform: scaleX(0);
-            transform-origin: left;
-            transition: transform 0.3s ease;
-        }
-
-        .project-card:hover::before { transform: scaleX(1); }
         .project-card:hover { transform: translateY(-10px); }
 
         .project-title { font-size: 1.4rem; color: #fff; margin-bottom: 1rem; }
@@ -249,93 +237,34 @@
 
         .edu-list li {
             list-style: none;
-            margin-bottom: 1rem;
-            padding-bottom: 1rem;
-            border-bottom: 1px solid var(--card-border);
+            margin-bottom: 1.5rem;
         }
-        .edu-list li:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0;}
         .edu-title { font-weight: 600; color: #fff; }
         .edu-school { color: var(--text-muted); font-size: 0.9rem; }
 
-        /* --- RESPONSIVIDAD --- */
-        @media (max-width: 768px) { 
-            .info-grid { grid-template-columns: 1fr; } 
-            .contact-links { flex-direction: column; align-items: stretch; }
-            .contact-links a { justify-content: center; }
-            .section-title { font-size: 1.8rem; }
-            .container { padding: 0 1rem 3rem 1rem; }
-        }
+        @media (max-width: 768px) { .info-grid { grid-template-columns: 1fr; } }
 
         /* --- MODAL --- */
         .modal {
             display: none; position: fixed; inset: 0;
             background: rgba(15, 23, 42, 0.85); backdrop-filter: blur(8px);
             z-index: 1000; justify-content: center; align-items: center;
-            opacity: 0; transition: opacity 0.3s ease;
         }
-
-        .modal.show { opacity: 1; display: flex; }
-
+        .modal.show { display: flex; }
         .modal-content {
             background: #1e293b; border: 1px solid var(--card-border);
             border-radius: 16px; padding: 2.5rem; max-width: 750px; width: 95%;
             max-height: 85vh; overflow-y: auto; position: relative;
-            transform: translateY(50px); transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
         }
-
-        .modal.show .modal-content { transform: translateY(0); }
-
         .close-btn {
             position: absolute; top: 15px; right: 20px;
             background: rgba(255,255,255,0.1); border: none; color: #fff;
-            width: 30px; height: 30px; border-radius: 50%;
-            cursor: pointer; font-size: 1.2rem; display: flex; align-items: center; justify-content: center;
-            transition: background 0.2s;
+            width: 30px; height: 30px; border-radius: 50%; cursor: pointer;
         }
 
-        .close-btn:hover { background: var(--accent-cyan); }
-        
-        /* Estilos Internos del Modal */
-        .modal-body h4 {
-            color: #fff;
-            font-size: 1.1rem;
-            margin-top: 1.5rem;
-            margin-bottom: 0.8rem;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-            padding-bottom: 0.3rem;
-        }
-        .modal-body p {
-            color: var(--text-muted);
-            margin-bottom: 1rem;
-            font-size: 0.95rem;
-        }
-        .modal-body ul { margin-left: 1.2rem; color: var(--text-muted); font-size: 0.95rem; }
-        .modal-body li { margin-bottom: 0.6rem; }
-        .modal-body strong { color: var(--accent-cyan); }
-        .tech-pill {
-            display: inline-block;
-            background: rgba(59, 130, 246, 0.15);
-            color: #93c5fd;
-            padding: 2px 8px;
-            border-radius: 4px;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.8rem;
-            margin: 0 2px;
-            border: 1px solid rgba(59, 130, 246, 0.3);
-        }
-
-        /* --- SCROLL ANIMATIONS --- */
-        .reveal {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.8s ease-out;
-        }
-        .reveal.active {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
+        /* --- REVEAL ANIMATION --- */
+        .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s ease-out; }
+        .reveal.active { opacity: 1; transform: translateY(0); }
     </style>
 </head>
 <body>
@@ -350,8 +279,8 @@
         
         <div class="contact-links reveal">
             <a href="mailto:da.velazquez8@gmail.com"><span>📧</span> Correo</a>
-            <a href="https://www.linkedin.com/in/diegvel/" target="_blank" rel="noopener noreferrer"><span>💼</span> LinkedIn</a>
-            <a href="https://github.com/diegovsalas" target="_blank" rel="noopener noreferrer"><span>💻</span> GitHub</a>
+            <a href="https://www.linkedin.com/in/diegvel/" target="_blank"><span>💼</span> LinkedIn</a>
+            <a href="https://github.com/diegovsalas" target="_blank"><span>💻</span> GitHub</a>
         </div>
     </header>
 
@@ -361,26 +290,49 @@
             <h2 class="section-title">Experiencia Profesional</h2>
             <div class="glass-card">
                 <div class="timeline">
+                    
                     <div class="job-item">
-                        <div class="job-title">Head of CX & CC | Avantex</div>
-                        <div class="job-date">Oct 2024 - Actualidad</div>
-                        <div class="job-desc">Gestión integral de cartera AAA, implementación de reuniones de resultados mensuales y coordinación de equipos para potenciar ventas y garantizar la satisfacción del cliente.</div>
+                        <div class="job-title">Head of CX & CC</div>
+                        <div class="job-company">Avantex</div>
+                        <div class="job-date">Octubre 2024 - Actualidad</div>
+                        <ul class="job-bullets">
+                            <li><strong>Business Intelligence:</strong> Implementación de tableros en Zoho Analytics y Looker Studio para monitoreo de KPIs y proyecciones en tiempo real.</li>
+                            <li><strong>OKRs Estratégicos:</strong> Diseño del sistema de Objetivos y Resultados Clave mediante Airtable para mejorar la trazabilidad de iniciativas.</li>
+                            <li><strong>Automatización:</strong> Optimización de flujos de trabajo e incidencias con Zapier, reduciendo significativamente tiempos manuales.</li>
+                        </ul>
                     </div>
+
                     <div class="job-item">
-                        <div class="job-title">Customer Success Manager Sr. | Lapzo</div>
-                        <div class="job-date">Abr 2023 - Oct 2024</div>
-                        <div class="job-desc">Manejo del ciclo de vida de clientes Tier 1 con un 95% de retención anual. Automatización de procesos de atención en CRM y ejecución de estrategias de venta consultiva.</div>
+                        <div class="job-title">Customer Success Manager Sr. (CSM Sr.)</div>
+                        <div class="job-company">Lapzo</div>
+                        <div class="job-date">Abril 2023 - Octubre 2024</div>
+                        <ul class="job-bullets">
+                            <li><strong>Retención AAA:</strong> Gestión de clientes Tier 1 logrando un 95% de retención anual mediante renovaciones anticipadas.</li>
+                            <li><strong>Venta Consultiva:</strong> Ejecución de estrategias para cierre de nuevas oportunidades dentro de la cartera base.</li>
+                            <li><strong>Eficiencia Operativa:</strong> Automatización de procesos de atención en CRM para optimizar la calidad del servicio.</li>
+                        </ul>
                     </div>
+
                     <div class="job-item">
-                        <div class="job-title">CX Account Manager | Clear Mechanic</div>
-                        <div class="job-date">Abr 2022 - Abr 2023</div>
-                        <div class="job-desc">Diseño de estrategias de CX y aseguramiento de adopción del producto, logrando índices superiores al 90% en métricas de satisfacción (CSAT).</div>
+                        <div class="job-title">CX Account Manager</div>
+                        <div class="job-company">Clear Mechanic</div>
+                        <div class="job-date">Abril 2022 - Abril 2023</div>
+                        <ul class="job-bullets">
+                            <li><strong>Adopción Tecnológica:</strong> Liderazgo en la ejecución de estrategias CX para asegurar la adopción total del producto.</li>
+                            <li><strong>Métricas CSAT:</strong> Mantenimiento de índices de satisfacción superiores al 90% mediante acompañamiento proactivo.</li>
+                        </ul>
                     </div>
+
                     <div class="job-item">
-                        <div class="job-title">Consultor Microsoft Dynamics AX (ERP) | GCG</div>
-                        <div class="job-date">2016 - Abr 2022</div>
-                        <div class="job-desc">Liderazgo en implementaciones ERP, gestión de incidencias complejas y detección de necesidades tecnológicas para lograr un crecimiento del 120% en cross-selling.</div>
+                        <div class="job-title">Consultor Microsoft Dynamics AX (ERP)</div>
+                        <div class="job-company">GCG</div>
+                        <div class="job-date">2016 - Abril 2022</div>
+                        <ul class="job-bullets">
+                            <li><strong>Implementación ERP:</strong> Despliegue de soluciones Microsoft Dynamics AX gestionando ciclos completos de implementación.</li>
+                            <li><strong>Crecimiento Cross-selling:</strong> Logro de un incremento anual del 120% en ventas adicionales mediante detección de necesidades técnicas.</li>
+                        </ul>
                     </div>
+
                 </div>
             </div>
         </section>
@@ -388,79 +340,50 @@
         <section class="content-section reveal" style="margin-top: 4rem;">
             <h2 class="section-title">Laboratorio de Soluciones AI & Code</h2>
             <div class="projects-grid">
-                
                 <div class="glass-card project-card" onclick="openModal('modal5')">
                     <h3 class="project-title">🧠 Leads Manager CRM</h3>
                     <p class="project-summary">CRM comercial in-house enfocado en ventas con enrutamiento Round-Robin y embudo multimarca.</p>
                     <div class="tech-tags">
-                        <span class="tech-tag">Flask / Python</span> <span class="tech-tag">Supabase</span> <span class="tech-tag">Meta API</span>
+                        <span class="tech-tag">Flask</span> <span class="tech-tag">Supabase</span> <span class="tech-tag">Meta API</span>
                     </div>
                 </div>
-
                 <div class="glass-card project-card" onclick="openModal('modal1')">
                     <h3 class="project-title">🌱 Planificador AI</h3>
-                    <p class="project-summary">Plataforma web para diseño interactivo de planos de cobertura olfativa impulsada por IA (Gemini Vision).</p>
+                    <p class="project-summary">Diseño interactivo de planos de cobertura olfativa impulsada por IA (Gemini Vision).</p>
                     <div class="tech-tags">
-                        <span class="tech-tag">Python</span> <span class="tech-tag">Streamlit</span> <span class="tech-tag">Gemini AI</span>
+                        <span class="tech-tag">Python</span> <span class="tech-tag">Streamlit</span> <span class="tech-tag">Gemini</span>
                     </div>
                 </div>
-
-                <div class="glass-card project-card" onclick="openModal('modal2')">
-                    <h3 class="project-title">💬 Bot & Kanban CX</h3>
-                    <p class="project-summary">Motor de WhatsApp con enrutamiento inteligente, encuestas CSAT y tablero operativo Drag & Drop.</p>
-                    <div class="tech-tags">
-                        <span class="tech-tag">Flask</span> <span class="tech-tag">Meta API</span> <span class="tech-tag">n8n</span>
-                    </div>
-                </div>
-
-                <div class="glass-card project-card" onclick="openModal('modal3')">
-                    <h3 class="project-title">📱 Sincro IA (iOS)</h3>
-                    <p class="project-summary">App nativa en App Store. Agendas dinámicas para neurodivergencia sincronizadas con Apple Calendar.</p>
-                    <div class="tech-tags">
-                        <span class="tech-tag">SwiftUI</span> <span class="tech-tag">SwiftData</span> <span class="tech-tag">iOS</span>
-                    </div>
-                </div>
-
                 <div class="glass-card project-card" onclick="openModal('modal4')">
                     <h3 class="project-title">📊 CRM Financiero</h3>
-                    <p class="project-summary">Dashboard interactivo que procesa CSVs para análisis de MRR/ARR, bonos de KAMs y Pipeline comercial.</p>
+                    <p class="project-summary">Dashboard interactivo para análisis de MRR/ARR, bonos de KAMs y Pipeline comercial.</p>
                     <div class="tech-tags">
                         <span class="tech-tag">React</span> <span class="tech-tag">JavaScript</span> <span class="tech-tag">Data</span>
                     </div>
                 </div>
-
             </div>
         </section>
 
         <section class="content-section reveal" style="margin-top: 4rem;">
-            <h2 class="section-title">Stack Técnico & Educación</h2>
+            <h2 class="section-title">Formación Académica</h2>
             <div class="info-grid">
                 <div class="glass-card">
-                    <h3 style="color: #fff; margin-bottom: 1.5rem;">Tecnologías</h3>
-                    <div class="tech-tags">
-                        <span class="tech-tag">Dynamics 365</span>
-                        <span class="tech-tag">n8n (Workflows)</span>
-                        <span class="tech-tag">React / JS</span>
-                        <span class="tech-tag">Python / Flask</span>
-                        <span class="tech-tag">Power BI</span>
-                        <span class="tech-tag">SwiftUI</span>
-                        <span class="tech-tag">Supabase (SQL)</span>
-                        <span class="tech-tag">Meta Cloud API</span>
-                    </div>
-                </div>
-                <div class="glass-card">
-                    <h3 style="color: #fff; margin-bottom: 1.5rem;">Formación Académica</h3>
                     <ul class="edu-list">
                         <li>
-                            <div class="edu-title">Licenciatura en Psicología Empresarial</div>
+                            <div class="edu-title">Licenciado en Psicología Empresarial</div>
                             <div class="edu-school">Tec Milenio (2012 - 2017)</div>
                         </li>
                         <li>
                             <div class="edu-title">Licenciatura en Administración</div>
                             <div class="edu-school">FACPYA, UANL (2007 - 2012)</div>
                         </li>
+                    </ul>
+                </div>
+                <div class="glass-card">
+                    <h3 style="color: #fff; margin-bottom: 1rem;">Certificaciones</h3>
+                    <ul class="edu-list">
                         <li>
-                            <div class="edu-title">Data Intelligence & Power BI (Certs.)</div>
+                            <div class="edu-title">Business Data Intelligence / Power BI Big Data</div>
                             <div class="edu-school">Tecnológico de Monterrey (2021)</div>
                         </li>
                     </ul>
@@ -470,180 +393,39 @@
 
     </div>
 
-    <!-- MODAL 5: NUEVO PROYECTO CEREBRO AVANTEX -->
     <div id="modal5" class="modal">
         <div class="modal-content">
             <button class="close-btn" onclick="closeModal('modal5')">✕</button>
-            <h2 style="color:var(--accent-cyan); margin-bottom:0.5rem;">Leads Manager CRM</h2>
-            <p style="color:#fff; font-weight:600; font-size:0.9rem;">Flask | Supabase (PostgreSQL) | Meta Webhooks</p>
-
-            <div class="modal-body">
-                <h4>Arquitectura del Flujo</h4>
-                <p>Plataforma in-house desarrollada con <span class="tech-pill">Flask</span> (Python) y base de datos relacional alojada en <span class="tech-pill">Supabase</span>[cite: 2]. El sistema captura prospectos automáticamente mediante <span class="tech-pill">Webhooks de Meta Ads</span> y WhatsApp Cloud API[cite: 2], procesándolos en el backend para renderizar un tablero Kanban UI utilizando plantillas Jinja2 y eventos en tiempo real vía SocketIO[cite: 2].</p>
-
-                <h4>Complejidad Técnica Resuelta</h4>
-                <ul>
-                    <li>Arquitectura de base de datos diseñada con 4 tablas principales (usuarios, leads, mensajes, estados)[cite: 2] capaz de segmentar y manejar métricas de 5 unidades de negocio distintas de forma concurrente[cite: 2].</li>
-                    <li>Desarrollo de un algoritmo inteligente de <strong>asignación Round-Robin</strong> que evalúa y distribuye leads dinámicamente basado en la especialidad y disponibilidad de cada asesor comercial[cite: 2].</li>
-                    <li>Creación de un bot interno integrado para que el equipo comercial actualice etapas y notas directamente desde su propio WhatsApp[cite: 2], sin depender de interfaces web.</li>
-                </ul>
-
-                <h4>Impacto en CX / Negocio</h4>
-                <p>Consolidó la prospección de diversas unidades de negocio (Aromatex, Pestex, Weldex, Nexo) en un panel de control único[cite: 2]. Entregó visibilidad financiera instantánea mediante paneles de control analíticos que cruzan el gasto publicitario (CPA/CPL) con el embudo de conversión para revelar el ROI comercial real[cite: 2].</p>
-            </div>
+            <h2 style="color:var(--accent-cyan);">Leads Manager CRM</h2>
+            <p>Captura automatizada de prospectos vía Meta Ads y WhatsApp Cloud API, con algoritmo Round-Robin para distribución equitativa a asesores.</p>
         </div>
     </div>
-
-    <!-- OTROS MODALES -->
-    <div id="modal1" class="modal">
-        <div class="modal-content">
-            <button class="close-btn" onclick="closeModal('modal1')">✕</button>
-            <h2 style="color:var(--accent-cyan); margin-bottom:0.5rem;">Planificador Estratégico AI</h2>
-            <p style="color:#fff; font-weight:600; font-size:0.9rem;">Python | Streamlit | Gemini 2.0 Vision</p>
-            
-            <div class="modal-body">
-                <h4>Arquitectura del Flujo</h4>
-                <p>El sistema recibe un archivo (PDF/JPG) arquitectónico que se codifica y envía vía API a Gemini Vision mediante un <strong>Prompt Estructurado</strong>. El LLM devuelve un formato JSON validado con coordenadas sugeridas que la capa frontal (Streamlit) interpreta para renderizar dinámicamente sobre un mapa (Canvas).</p>
-                
-                <h4>Complejidad Técnica Resuelta</h4>
-                <ul>
-                    <li>Manejo avanzado de <span class="tech-pill">session_state</span> para persistir las coordenadas de los equipos insertados por el usuario sin recargar el DOM.</li>
-                    <li>Algoritmo matemático de <strong>escalamiento interactivo</strong>: Convierte de forma precisa "píxeles de pantalla" a "metros reales" según la calibración manual del usuario.</li>
-                    <li>Cálculo volumétrico dinámico (Radio = Área / Altura / Capacidad del equipo) ajustando el círculo de cobertura en tiempo real.</li>
-                </ul>
-
-                <h4>Impacto en CX / Negocio</h4>
-                <p>Digitalizó y profesionalizó un proceso de preventa manual. Los asesores ahora generan propuestas técnicas exportables a PDF corporativo en minutos, aumentando la confianza técnica del cliente B2B.</p>
-            </div>
-        </div>
-    </div>
-
-    <div id="modal2" class="modal">
-        <div class="modal-content">
-            <button class="close-btn" onclick="closeModal('modal2')">✕</button>
-            <h2 style="color:var(--accent-cyan); margin-bottom:0.5rem;">Bot Omnicanal & Kanban CX</h2>
-            <p style="color:#fff; font-weight:600; font-size:0.9rem;">Webhooks | Meta Cloud API | n8n | Airtable</p>
-
-            <div class="modal-body">
-                <h4>Arquitectura del Flujo</h4>
-                <p>Los mensajes ingresan vía <strong>Webhooks</strong> desde Meta API hacia un orquestador lógico (<span class="tech-pill">n8n</span> / <span class="tech-pill">Flask</span>). El motor evalúa palabras clave y lógica condicional para segmentar la atención (UENs). La data se persiste de forma bidireccional mediante APIs REST hacia una base relacional (Airtable), que alimenta un tablero Kanban Frontend.</p>
-
-                <h4>Complejidad Técnica Resuelta</h4>
-                <ul>
-                    <li>Gestión de <strong>payloads asíncronos</strong> para asegurar que el bot no bloquee la recepción masiva de mensajes y asigne prioridades.</li>
-                    <li>Diseño de <strong>enrutamiento condicional</strong> que identifica si el cliente pertenece a distintas ramas del negocio.</li>
-                    <li>Implementación de la gestión de estados (Nuevo, En Proceso, Resuelto) con disparo automatizado de encuestas (CSAT) basado en cambios de registro en la DB.</li>
-                </ul>
-
-                <h4>Impacto en CX / Negocio</h4>
-                <p>Redujo drásticamente los tiempos de primera respuesta (SLA). El tablero visual empoderó a los agentes operativos, eliminando el "caos" de una bandeja de WhatsApp estándar.</p>
-            </div>
-        </div>
-    </div>
-
-    <div id="modal3" class="modal">
-        <div class="modal-content">
-            <button class="close-btn" onclick="closeModal('modal3')">✕</button>
-            <h2 style="color:var(--accent-cyan); margin-bottom:0.5rem;">Sincro IA (App Store)</h2>
-            <p style="color:#fff; font-weight:600; font-size:0.9rem;">SwiftUI | EventKit | SwiftData | Gemini API</p>
-
-            <div class="modal-body">
-                <h4>Arquitectura del Flujo</h4>
-                <p>Aplicación nativa iOS bajo el patrón de diseño <strong>MVVM</strong>. El modelo interactúa con el framework <span class="tech-pill">EventKit</span> de Apple para leer la agenda del usuario. La vista recolecta un "volcado mental" que se envía a Gemini de manera asíncrona, y la IA retorna una matriz de tareas que el controlador inyecta de vuelta en el calendario de forma segura.</p>
-
-                <h4>Complejidad Técnica Resuelta</h4>
-                <ul>
-                    <li>Lógica de <strong>resolución de conflictos temporales</strong>: El algoritmo evalúa los bloques de EventKit para asegurar matemáticamente que la IA jamás sobrescriba o empalme reuniones de trabajo existentes.</li>
-                    <li>Implementación segura de concurrencia (<span class="tech-pill">async/await</span>) para evitar que la interfaz se congele durante el llamado a la API.</li>
-                    <li>Diseño UX centrado en neurodivergencia: Mitigación de sobrecarga cognitiva estructurando la UI para no abrumar al usuario.</li>
-                </ul>
-
-                <h4>Impacto en CX / Negocio</h4>
-                <p>Producto publicado comercialmente en la App Store, superando las estrictas validaciones de rendimiento y privacidad de Apple.</p>
-            </div>
-        </div>
-    </div>
-
-    <div id="modal4" class="modal">
-        <div class="modal-content">
-            <button class="close-btn" onclick="closeModal('modal4')">✕</button>
-            <h2 style="color:var(--accent-cyan); margin-bottom:0.5rem;">CRM & Dashboard Financiero</h2>
-            <p style="color:#fff; font-weight:600; font-size:0.9rem;">React | Hooks | CSS Grid | Data Analytics</p>
-
-            <div class="modal-body">
-                <h4>Arquitectura del Flujo</h4>
-                <p>SPA (Single Page Application) sin backend pesado (Client-Side Rendering). Un módulo de carga recibe archivos <span class="tech-pill">.csv</span> en bruto, normalizando miles de filas en memoria. El estado global distribuye esta data a múltiples vistas (Pipeline, Cortes, Histórico) reaccionando en tiempo real a los filtros del usuario.</p>
-
-                <h4>Complejidad Técnica Resuelta</h4>
-                <ul>
-                    <li>Optimización extrema de renderizado utilizando <span class="tech-pill">useMemo</span> y <span class="tech-pill">useCallback</span> para evitar bloqueos del navegador al recalcular matrices de datos grandes (MRR, ARR, MoM).</li>
-                    <li>Algoritmo de <strong>agrupación multidimensional</strong>: Transforma registros planos en objetos anidados indexados por Cliente, KAM, Trimestre y Unidad de Negocio.</li>
-                    <li>Motor de lógica de negocio que calcula dinámicamente bonos comisionables basados en reglas condicionales variables.</li>
-                </ul>
-
-                <h4>Impacto en CX / Negocio</h4>
-                <p>Otorga visibilidad financiera instantánea a la gerencia. Sustituyó el uso de múltiples hojas de cálculo pesadas por una interfaz analítica única y centralizada.</p>
-            </div>
-        </div>
-    </div>
-
     <script>
-        // Efecto de Máquina de Escribir
-        const textToType = "Head de CX & CC | Desarrollador AI | Product Owner";
+        const textToType = "Head of CX & CC | Desarrollador AI | Product Owner";
         const typingElement = document.getElementById('typing-text');
         let index = 0;
-
         function type() {
             if (index < textToType.length) {
                 typingElement.innerHTML += textToType.charAt(index);
                 index++;
                 setTimeout(type, 50);
-            } else {
-                typingElement.style.borderRight = "2px solid var(--accent-cyan)";
-                typingElement.style.animation = "blink 1s infinite";
             }
         }
-        
         setTimeout(type, 500);
 
-        // Animación de aparición al hacer Scroll
         function reveal() {
             var reveals = document.querySelectorAll(".reveal");
             for (var i = 0; i < reveals.length; i++) {
                 var windowHeight = window.innerHeight;
                 var elementTop = reveals[i].getBoundingClientRect().top;
-                var elementVisible = 100;
-                if (elementTop < windowHeight - elementVisible) {
-                    reveals[i].classList.add("active");
-                }
+                if (elementTop < windowHeight - 100) { reveals[i].classList.add("active"); }
             }
         }
         window.addEventListener("scroll", reveal);
         reveal();
 
-        // Lógica de Modales
-        function openModal(modalId) {
-            const modal = document.getElementById(modalId);
-            modal.classList.add('show');
-            document.body.style.overflow = 'hidden';
-        }
-
-        function closeModal(modalId) {
-            const modal = document.getElementById(modalId);
-            modal.classList.remove('show');
-            document.body.style.overflow = 'auto';
-        }
-
-        window.onclick = function(event) {
-            if (event.target.classList.contains('modal')) {
-                event.target.classList.remove('show');
-                document.body.style.overflow = 'auto';
-            }
-        }
+        function openModal(modalId) { document.getElementById(modalId).classList.add('show'); }
+        function closeModal(modalId) { document.getElementById(modalId).classList.remove('show'); }
     </script>
-
-    <style>
-        @keyframes blink { 50% { border-color: transparent; } }
-    </style>
 </body>
 </html>
