@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Diego A. Velazquez | Portfolio Profesional</title>
+    <title>Diego A. Velazquez | Estrategia CX & AI</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -27,11 +27,13 @@
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { background-color: var(--bg); color: var(--text); font-family: '72', 'Inter', sans-serif; line-height: 1.5; -webkit-font-smoothing: antialiased; }
-        .container { max-width: 900px; margin: 0 auto; padding: 4rem 2rem; }
+        body { background-color: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; line-height: 1.5; -webkit-font-smoothing: antialiased; }
+        
+        .container { max-width: 850px; margin: 0 auto; padding: 4rem 2rem; }
         
         header { text-align: center; margin-bottom: 4rem; }
         .profile-pic { width: 120px; height: 120px; border-radius: 40px; object-fit: cover; margin-bottom: 1.5rem; border: 1px solid var(--border); }
+        
         h1 { font-size: 2.5rem; font-weight: 800; letter-spacing: -0.03em; margin-bottom: 0.5rem; }
         .tagline { font-size: 1.1rem; color: var(--text-light); font-weight: 400; margin-bottom: 2rem; }
 
@@ -39,40 +41,53 @@
         .contact-info a { color: var(--text); text-decoration: none; font-weight: 500; transition: color 0.2s; }
         .contact-info a:hover { color: var(--accent); }
 
-        /* --- BOTÓN DE DESCARGA PDF --- */
         .download-btn {
             display: inline-flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
             background-color: var(--accent);
             color: white !important;
-            padding: 0.75rem 1.5rem;
-            border-radius: 8px;
-            font-weight: 600;
+            padding: 0.8rem 1.8rem;
+            border-radius: 12px;
+            font-weight: 700;
             text-decoration: none;
-            transition: transform 0.2s, background-color 0.2s;
-            box-shadow: 0 4px 12px rgba(79, 70, 229, 0.2);
+            transition: all 0.2s ease;
+            box-shadow: 0 10px 15px -3px rgba(79, 70, 229, 0.3);
         }
-        .download-btn:hover { background-color: #4338ca; transform: translateY(-2px); }
+        .download-btn:hover { transform: translateY(-2px); box-shadow: 0 20px 25px -5px rgba(79, 70, 229, 0.4); }
 
-        section { margin-bottom: 5rem; }
+        section { margin-bottom: 4rem; }
         .section-label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--accent); font-weight: 700; margin-bottom: 1.5rem; display: block; }
         
-        .experience-item { margin-bottom: 3rem; }
-        .exp-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 0.75rem; }
-        .exp-title { font-size: 1.25rem; font-weight: 700; }
+        .experience-item { margin-bottom: 2.5rem; }
+        .exp-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 0.5rem; }
+        .exp-title { font-size: 1.2rem; font-weight: 700; }
         .exp-company { color: var(--accent); font-weight: 600; }
-        .exp-date { font-size: 0.85rem; color: var(--text-light); }
-        .exp-list { list-style: none; color: var(--text-light); font-size: 1rem; }
-        .exp-list li { position: relative; padding-left: 1.5rem; margin-bottom: 0.75rem; }
+        .exp-date { font-size: 0.85rem; color: var(--text-light); font-family: monospace; }
+        
+        .exp-list { list-style: none; color: var(--text-light); font-size: 0.95rem; }
+        .exp-list li { position: relative; padding-left: 1.2rem; margin-bottom: 0.5rem; }
         .exp-list li::before { content: "—"; position: absolute; left: 0; color: var(--border); }
         .exp-list strong { color: var(--text); font-weight: 600; }
 
-        .project-card { padding: 1.5rem; border: 1px solid var(--border); border-radius: 12px; cursor: pointer; transition: all 0.2s ease; margin-bottom: 1rem; }
+        .projects-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+        .project-card { padding: 1.2rem; border: 1px solid var(--border); border-radius: 12px; cursor: pointer; transition: all 0.2s ease; }
         .project-card:hover { border-color: var(--accent); background-color: var(--card-hover); }
-        .project-title { font-size: 1.1rem; font-weight: 700; margin-bottom: 0.5rem; }
-        
-        @media (max-width: 640px) { .exp-header { flex-direction: column; gap: 0.25rem; } .container { padding-top: 2rem; } }
+        .project-title { font-size: 1rem; font-weight: 700; margin-bottom: 0.3rem; }
+        .project-desc { font-size: 0.85rem; color: var(--text-light); }
+
+        .edu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+        .edu-item h4 { font-size: 1rem; font-weight: 700; margin-bottom: 0.2rem; }
+        .edu-item p { font-size: 0.9rem; color: var(--text-light); }
+
+        .modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); backdrop-filter: blur(4px); z-index: 1000; justify-content: center; align-items: center; padding: 1rem; }
+        .modal-content { background: var(--bg); border-radius: 16px; padding: 2rem; max-width: 600px; width: 100%; max-height: 85vh; overflow-y: auto; position: relative; border: 1px solid var(--border); }
+        .close-btn { position: absolute; top: 1rem; right: 1rem; background: none; border: none; font-size: 1.2rem; color: var(--text-light); cursor: pointer; }
+
+        @media (max-width: 640px) {
+            .exp-header, .edu-grid, .projects-grid { grid-template-columns: 1fr; flex-direction: column; }
+            .container { padding: 2rem 1.5rem; }
+        }
     </style>
 </head>
 <body>
@@ -80,7 +95,7 @@
         <header>
             <img src="./1767795222084.png" alt="Diego A. Velazquez" class="profile-pic">
             <h1>Diego A. Velazquez</h1>
-            <p class="tagline">Gerente de CX | Omnichannel Strategist | AI Developer</p>
+            <p class="tagline">Gerente de Customer Experience | Omnichannel Strategist | AI Developer</p>
             
             <div class="contact-info">
                 <a href="mailto:da.velazquez89@gmail.com">da.velazquez89@gmail.com</a>
@@ -89,23 +104,123 @@
             </div>
 
             <a href="CV_Diego_Velazquez_2026.pdf" class="download-btn" download>
-                📥 Descargar CV (PDF)
+                Descargar CV Completo (PDF)
             </a>
         </header>
 
         <section>
             <span class="section-label">Experiencia Profesional</span>
+            
             <div class="experience-item">
                 <div class="exp-header">
                     <span class="exp-title">Gerente de Customer Experience <span class="exp-company">@ Avantex</span></span>
-                    <span class="exp-date">Abr 2026 — Actualidad</span>
+                    <span class="exp-date">Abr 2026 — Presente</span>
                 </div>
                 <ul class="exp-list">
-                    <li><strong>Estrategia y Retención:</strong> Dirección de la estrategia de CX en todas las unidades de negocio para impulsar la retención y el Net Revenue Retention (NRR).</li>
-                    <li><strong>Excelencia Operativa:</strong> Supervisión de más de 2,700 servicios mensuales, garantizando la calidad mediante métricas NPS y CSAT.</li>
+                    <li><strong>Estrategia y Rentabilidad:</strong> Dirección de la estrategia integral de CX para impulsar la retención y el Net Revenue Retention (NRR).</li>
+                    <li><strong>Gobernanza Operativa:</strong> Supervisión de más de <strong>2,700 servicios mensuales</strong>, asegurando la calidad mediante métricas NPS y CSAT.</li>
+                    <li><strong>Transformación Digital:</strong> Liderazgo en la agenda de innovación tecnológica y automatización de procesos críticos.</li>
                 </ul>
             </div>
-            </section>
+
+            <div class="experience-item">
+                <div class="exp-header">
+                    <span class="exp-title">Head of CX & CC (Key Accounts) <span class="exp-company">@ Avantex</span></span>
+                    <span class="exp-date">Oct 2024 — Mar 2026</span>
+                </div>
+                <ul class="exp-list">
+                    <li><strong>Revenue Protection:</strong> Creación del departamento de Key Accounts para las 24 cuentas de mayor impacto financiero de la compañía.</li>
+                    <li><strong>Estrategia Omnicanal:</strong> Implementación de WhatsApp Cloud API y sistema de tickets, mejorando la resolución en un 40%.</li>
+                    <li><strong>Dashboards:</strong> Despliegue de métricas en Zoho Analytics y Looker Studio para toma de decisiones en tiempo real.</li>
+                </ul>
+            </div>
+
+            <div class="experience-item">
+                <div class="exp-header">
+                    <span class="exp-title">Customer Success Manager Sr. <span class="exp-company">@ Lapzo</span></span>
+                    <span class="exp-date">Abr 2023 — Oct 2024</span>
+                </div>
+                <ul class="exp-list">
+                    <li><strong>LTV Optimization:</strong> Gestión de clientes Tier 1 logrando una <strong>retención anual del 95%</strong>.</li>
+                    <li><strong>Expansion Revenue:</strong> Ejecución de venta consultiva para identificar oportunidades dentro de la cartera base.</li>
+                </ul>
+            </div>
+
+            <div class="experience-item">
+                <div class="exp-header">
+                    <span class="exp-title">CX Account Manager <span class="exp-company">@ Clear Mechanic</span></span>
+                    <span class="exp-date">Abr 2022 — Abr 2023</span>
+                </div>
+                <ul class="exp-list">
+                    <li><strong>Product Adoption:</strong> Diseño de flujos de CX que elevaron los índices CSAT por encima del 90%.</li>
+                </ul>
+            </div>
+
+            <div class="experience-item">
+                <div class="exp-header">
+                    <span class="exp-title">Consultor Microsoft Dynamics AX <span class="exp-company">@ GCG</span></span>
+                    <span class="exp-date">2016 — 2022</span>
+                </div>
+                <ul class="exp-list">
+                    <li><strong>Procesos ERP:</strong> Liderazgo en implementaciones de sistemas complejos, logrando un crecimiento del 120% en cross-selling.</li>
+                </ul>
+            </div>
+        </section>
+
+        <section>
+            <span class="section-label">Laboratorio de Proyectos</span>
+            <div class="projects-grid">
+                <div class="project-card" onclick="openModal('m1')">
+                    <div class="project-title">🧠 Leads Manager CRM</div>
+                    <p class="project-desc">Sistema RevOps con enrutamiento Round-Robin y trazabilidad total.</p>
+                </div>
+                <div class="project-card" onclick="openModal('m2')">
+                    <div class="project-title">💬 Bot & Kanban CX</div>
+                    <p class="project-desc">Automatización de WhatsApp con gestión operativa en tiempo real.</p>
+                </div>
+                <div class="project-card" onclick="openModal('m3')">
+                    <div class="project-title">🌱 Planificador AI</div>
+                    <p class="project-desc">Visión computacional para diseño técnico de coberturas olfativas.</p>
+                </div>
+                <div class="project-card" onclick="openModal('m4')">
+                    <div class="project-title">📊 CRM Financiero</div>
+                    <p class="project-summary">Análisis reactivo de MRR/ARR y automatización de comisiones.</p>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <span class="section-label">Formación Académica</span>
+            <div class="edu-grid">
+                <div class="edu-item">
+                    <h4>Lic. en Psicología Empresarial</h4>
+                    <p>Universidad Tecmilenio | 2017</p>
+                </div>
+                <div class="edu-item">
+                    <h4>Lic. en Administración</h4>
+                    <p>UANL (FACPYA) | 2012</p>
+                </div>
+                <div class="edu-item">
+                    <h4>Data Intelligence & Power BI</h4>
+                    <p>Tecnológico de Monterrey | Certificación</p>
+                </div>
+            </div>
+        </section>
     </div>
+
+    <div id="m1" class="modal" onclick="closeModalOnEmpty(event)">
+        <div class="modal-content">
+            <button class="close-btn" onclick="closeModal('m1')">&times;</button>
+            <h3>Leads Manager CRM</h3>
+            <p><strong>Stack:</strong> Flask, Supabase, Meta API.</p>
+            <p style="margin-top:10px;">Captura y distribución automática de prospectos. Centraliza la prospección de diversas unidades de negocio en un panel de control único con visibilidad de ROI en tiempo real.</p>
+        </div>
+    </div>
+
+    <script>
+        function openModal(id) { document.getElementById(id).style.display = 'flex'; document.body.style.overflow = 'hidden'; }
+        function closeModal(id) { document.getElementById(id).style.display = 'none'; document.body.style.overflow = 'auto'; }
+        function closeModalOnEmpty(e) { if (e.target.classList.contains('modal')) closeModal(e.target.id); }
+    </script>
 </body>
 </html>
