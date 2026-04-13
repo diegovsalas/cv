@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Diego A. Velazquez | Business & CX Strategy</title>
+    <title>Diego A. Velazquez | Portfolio Profesional</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -29,15 +29,35 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { background-color: var(--bg); color: var(--text); font-family: '72', 'Inter', sans-serif; line-height: 1.5; -webkit-font-smoothing: antialiased; }
         .container { max-width: 900px; margin: 0 auto; padding: 4rem 2rem; }
-        header { text-align: center; margin-bottom: 5rem; }
+        
+        header { text-align: center; margin-bottom: 4rem; }
         .profile-pic { width: 120px; height: 120px; border-radius: 40px; object-fit: cover; margin-bottom: 1.5rem; border: 1px solid var(--border); }
         h1 { font-size: 2.5rem; font-weight: 800; letter-spacing: -0.03em; margin-bottom: 0.5rem; }
         .tagline { font-size: 1.1rem; color: var(--text-light); font-weight: 400; margin-bottom: 2rem; }
-        .contact-info { display: flex; justify-content: center; gap: 1.5rem; flex-wrap: wrap; font-size: 0.9rem; }
-        .contact-info a { color: var(--text); text-decoration: none; font-weight: 500; display: flex; align-items: center; gap: 6px; transition: color 0.2s; }
+
+        .contact-info { display: flex; justify-content: center; gap: 1.5rem; flex-wrap: wrap; font-size: 0.9rem; margin-bottom: 2rem; }
+        .contact-info a { color: var(--text); text-decoration: none; font-weight: 500; transition: color 0.2s; }
         .contact-info a:hover { color: var(--accent); }
+
+        /* --- BOTÓN DE DESCARGA PDF --- */
+        .download-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background-color: var(--accent);
+            color: white !important;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: transform 0.2s, background-color 0.2s;
+            box-shadow: 0 4px 12px rgba(79, 70, 229, 0.2);
+        }
+        .download-btn:hover { background-color: #4338ca; transform: translateY(-2px); }
+
         section { margin-bottom: 5rem; }
         .section-label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--accent); font-weight: 700; margin-bottom: 1.5rem; display: block; }
+        
         .experience-item { margin-bottom: 3rem; }
         .exp-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 0.75rem; }
         .exp-title { font-size: 1.25rem; font-weight: 700; }
@@ -47,15 +67,12 @@
         .exp-list li { position: relative; padding-left: 1.5rem; margin-bottom: 0.75rem; }
         .exp-list li::before { content: "—"; position: absolute; left: 0; color: var(--border); }
         .exp-list strong { color: var(--text); font-weight: 600; }
-        .projects-list { display: grid; grid-template-columns: 1fr; gap: 1.5rem; }
-        .project-card { padding: 1.5rem; border: 1px solid var(--border); border-radius: 12px; cursor: pointer; transition: all 0.2s ease; }
-        .project-card:hover { border-color: var(--accent); background-color: var(--card-hover); transform: translateY(-2px); }
-        .project-title { font-size: 1.1rem; font-weight: 700; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 8px; }
-        .project-desc { font-size: 0.95rem; color: var(--text-light); }
-        .modal { display: none; position: fixed; inset: 0; background: rgba(0, 0, 0, 0.4); backdrop-filter: blur(4px); z-index: 1000; justify-content: center; align-items: center; padding: 1rem; }
-        .modal-content { background: var(--bg); border-radius: 16px; padding: 2.5rem; max-width: 650px; width: 100%; max-height: 90vh; overflow-y: auto; position: relative; border: 1px solid var(--border); }
-        .close-btn { position: absolute; top: 1.5rem; right: 1.5rem; background: none; border: none; font-size: 1.5rem; color: var(--text-light); cursor: pointer; }
-        @media (max-width: 640px) { .exp-header { flex-direction: column; gap: 0.25rem; } h1 { font-size: 2rem; } .container { padding-top: 2rem; } }
+
+        .project-card { padding: 1.5rem; border: 1px solid var(--border); border-radius: 12px; cursor: pointer; transition: all 0.2s ease; margin-bottom: 1rem; }
+        .project-card:hover { border-color: var(--accent); background-color: var(--card-hover); }
+        .project-title { font-size: 1.1rem; font-weight: 700; margin-bottom: 0.5rem; }
+        
+        @media (max-width: 640px) { .exp-header { flex-direction: column; gap: 0.25rem; } .container { padding-top: 2rem; } }
     </style>
 </head>
 <body>
@@ -63,75 +80,32 @@
         <header>
             <img src="./1767795222084.png" alt="Diego A. Velazquez" class="profile-pic">
             <h1>Diego A. Velazquez</h1>
-            <p class="tagline">Head of CX & CC | Business Strategy | AI & Revenue Operations</p>
+            <p class="tagline">Gerente de CX | Omnichannel Strategist | AI Developer</p>
+            
             <div class="contact-info">
                 <a href="mailto:da.velazquez89@gmail.com">da.velazquez89@gmail.com</a>
                 <a href="https://wa.me/528135687469" target="_blank">+52 81 3568 7469</a>
                 <a href="https://www.linkedin.com/in/diegvel/" target="_blank">LinkedIn</a>
-                <a href="https://github.com/diegovsalas" target="_blank">GitHub</a>
             </div>
+
+            <a href="CV_Diego_Velazquez_2026.pdf" class="download-btn" download>
+                📥 Descargar CV (PDF)
+            </a>
         </header>
 
         <section>
-            <span class="section-label">Experiencia Ejecutiva</span>
-            
+            <span class="section-label">Experiencia Profesional</span>
             <div class="experience-item">
                 <div class="exp-header">
-                    <span class="exp-title">Head of CX & CC <span class="exp-company">@ Avantex</span></span>
-                    <span class="exp-date">Oct 2024 — Presente</span>
+                    <span class="exp-title">Gerente de Customer Experience <span class="exp-company">@ Avantex</span></span>
+                    <span class="exp-date">Abr 2026 — Actualidad</span>
                 </div>
                 <ul class="exp-list">
-                    <li><strong>Revenue Protection:</strong> Diseñé desde cero el departamento de Key Accounts, blindando la relación comercial de las 24 cuentas de mayor facturación mediante un modelo de alta disponibilidad.</li>
-                    <li><strong>Digital Scalability:</strong> Transformé el modelo de atención tradicional en un ecosistema omnicanal (WhatsApp Cloud API + Tickets), incrementando la velocidad de resolución en un <strong>40%</strong> y garantizando trazabilidad total.</li>
-                    <li><strong>Data Strategy & Churn Mitigation:</strong> Implementé la gobernanza de KPIs (CSAT/NPS) vinculados a dashboards financieros, permitiendo detectar y mitigar riesgos de fuga en cuentas AAA de forma proactiva.</li>
+                    <li><strong>Estrategia y Retención:</strong> Dirección de la estrategia de CX en todas las unidades de negocio para impulsar la retención y el Net Revenue Retention (NRR).</li>
+                    <li><strong>Excelencia Operativa:</strong> Supervisión de más de 2,700 servicios mensuales, garantizando la calidad mediante métricas NPS y CSAT.</li>
                 </ul>
             </div>
-
-            <div class="experience-item">
-                <div class="exp-header">
-                    <span class="exp-title">Customer Success Manager Sr. <span class="exp-company">@ Lapzo</span></span>
-                    <span class="exp-date">Abr 2023 — Oct 2024</span>
-                </div>
-                <ul class="exp-list">
-                    <li><strong>LTV Optimization:</strong> Mantuve una <strong>retención anual del 95%</strong> en clientes Tier 1 mediante la automatización inteligente de ciclos de renovación.</li>
-                    <li><strong>Expansion Revenue:</strong> Ejecuté estrategias de venta consultiva para elevar el Net Revenue Retention (NRR) mediante el cierre de nuevas oportunidades dentro de la base instalada.</li>
-                </ul>
-            </div>
-
-            <div class="experience-item">
-                <div class="exp-header">
-                    <span class="exp-title">CX Account Manager <span class="exp-company">@ Clear Mechanic</span></span>
-                    <span class="exp-date">Abr 2022 — Abr 2023</span>
-                </div>
-                <ul class="exp-list">
-                    <li><strong>Product Adoption:</strong> Aseguré el Product-Market Fit mediante el diseño de flujos de CX que elevaron los índices CSAT por encima del <strong>90%</strong>.</li>
-                </ul>
-            </div>
-
-            <div class="experience-item">
-                <div class="exp-header">
-                    <span class="exp-title">Consultor Microsoft Dynamics AX <span class="exp-company">@ GCG</span></span>
-                    <span class="exp-date">2016 — 2022</span>
-                </div>
-                <ul class="exp-list">
-                    <li><strong>Cross-selling Performance:</strong> Alcancé un <strong>crecimiento anual del 120%</strong> en ventas adicionales mediante el diagnóstico técnico y la optimización de procesos ERP complejos.</li>
-                </ul>
-            </div>
-        </section>
-
-        <section>
-            <span class="section-label">Portafolio de Soluciones</span>
-            <div class="projects-list">
-                <div class="project-card">
-                    <div class="project-title">🧠 Leads Manager CRM</div>
-                    <p class="project-desc">Sistema de Revenue Operations con enrutamiento automático y trazabilidad de punta a punta.</p>
-                </div>
-                <div class="project-card">
-                    <div class="project-title">🌱 Aromatex AI Planifier</div>
-                    <p class="project-desc">Proptech de visión computacional para optimización de presupuestos técnicos.</p>
-                </div>
-            </div>
-        </section>
+            </section>
     </div>
 </body>
 </html>
