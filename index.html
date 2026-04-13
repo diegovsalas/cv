@@ -3,441 +3,135 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Diego A. Velazquez - Portfolio</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <title>Diego A. Velazquez | Business & CX Strategy</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-color: #0f172a; 
-            --bg-gradient: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
-            --accent-cyan: #06b6d4;
-            --accent-blue: #3b82f6;
-            --text-main: #f8fafc;
-            --text-muted: #94a3b8;
-            --card-bg: rgba(30, 41, 59, 0.7);
-            --card-border: rgba(255, 255, 255, 0.1);
+            --bg: #fcfcfd;
+            --text: #1a1a1b;
+            --text-light: #64748b;
+            --accent: #4f46e5;
+            --border: #e2e8f0;
+            --card-hover: #f8fafc;
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --bg: #0f172a;
+                --text: #f8fafc;
+                --text-light: #94a3b8;
+                --accent: #818cf8;
+                --border: #1e293b;
+                --card-hover: #1e293b;
+            }
         }
 
-        body {
-            background: var(--bg-gradient);
-            background-attachment: fixed;
-            color: var(--text-main);
-            font-family: '72', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
-
-        /* --- BACKGROUND GLOW EFFECTS --- */
-        .glow-circle {
-            position: absolute;
-            width: 400px;
-            height: 400px;
-            background: var(--accent-blue);
-            border-radius: 50%;
-            filter: blur(150px);
-            opacity: 0.15;
-            z-index: -1;
-            animation: float 10s infinite ease-in-out alternate;
-        }
-
-        .glow-top { top: -100px; left: -100px; background: var(--accent-cyan); }
-        .glow-bottom { bottom: -100px; right: -100px; }
-
-        @keyframes float {
-            0% { transform: translateY(0) translateX(0); }
-            100% { transform: translateY(50px) translateX(50px); }
-        }
-
-        /* --- HEADER & HERO --- */
-        header {
-            min-height: 80vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding: 2rem;
-        }
-
-        .profile-pic {
-            width: 160px;
-            height: 160px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 4px solid transparent;
-            background: linear-gradient(var(--bg-color), var(--bg-color)) padding-box, 
-                        linear-gradient(45deg, var(--accent-cyan), var(--accent-blue)) border-box;
-            box-shadow: 0 0 30px rgba(6, 182, 212, 0.3);
-            margin-bottom: 2rem;
-            transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-
-        h1 {
-            font-size: clamp(2.5rem, 5vw, 4rem); 
-            font-weight: 800;
-            background: linear-gradient(to right, #fff, var(--accent-cyan));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 1rem;
-            letter-spacing: -1px;
-        }
-
-        .typing-container {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: clamp(1rem, 2.5vw, 1.2rem);
-            color: var(--accent-cyan);
-            margin-bottom: 2rem;
-            height: 30px;
-        }
-
-        .contact-links {
-            display: flex;
-            gap: 1.5rem;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-
-        .contact-links a {
-            color: var(--text-main);
-            text-decoration: none;
-            padding: 0.8rem 1.5rem;
-            border-radius: 30px;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid var(--card-border);
-            backdrop-filter: blur(10px);
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            transition: all 0.3s ease;
-        }
-
-        .contact-links a:hover {
-            background: rgba(255, 255, 255, 0.1);
-            border-color: var(--accent-cyan);
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(6, 182, 212, 0.2);
-        }
-
-        /* --- CONTAINER & SECTIONS --- */
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 2rem 5rem 2rem;
-        }
-
-        .section-title {
-            font-size: 2.2rem;
-            margin-bottom: 3rem;
-            font-weight: 800;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .section-title::after {
-            content: '';
-            height: 2px;
-            flex-grow: 1;
-            background: linear-gradient(to right, var(--accent-cyan), transparent);
-            border-radius: 2px;
-        }
-
-        /* --- GLASSMORPHISM CARDS --- */
-        .glass-card {
-            background: var(--card-bg);
-            backdrop-filter: blur(16px);
-            border: 1px solid var(--card-border);
-            border-radius: 16px;
-            padding: 2rem;
-            transition: all 0.4s ease;
-        }
-
-        /* --- TIMELINE --- */
-        .timeline {
-            display: flex;
-            flex-direction: column;
-            gap: 2.5rem;
-        }
-
-        .job-item {
-            position: relative;
-            padding-left: 2rem;
-            border-left: 2px solid var(--card-border);
-        }
-
-        .job-item::before {
-            content: '';
-            position: absolute;
-            left: -6px;
-            top: 0;
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            background: var(--accent-cyan);
-            box-shadow: 0 0 10px var(--accent-cyan);
-        }
-
-        .job-title { color: var(--text-main); font-size: 1.3rem; font-weight: 600; margin-bottom: 0.2rem; }
-        .job-company { color: var(--accent-cyan); font-weight: 600; font-size: 1rem; margin-bottom: 0.2rem; }
-        .job-date { color: var(--accent-blue); font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; margin-bottom: 1rem; }
-        
-        .job-bullets { margin-left: 1.2rem; color: var(--text-muted); font-size: 0.95rem; list-style-type: none; }
-        .job-bullets li { position: relative; margin-bottom: 0.8rem; }
-        .job-bullets li::before {
-            content: "▹";
-            position: absolute;
-            left: -1.2rem;
-            color: var(--accent-cyan);
-        }
-        .job-bullets strong { color: var(--text-main); }
-
-        /* --- PROJECTS GRID --- */
-        .projects-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-        }
-
-        .project-card {
-            cursor: pointer;
-            display: flex;
-            flex-direction: column;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .project-card:hover { transform: translateY(-10px); }
-
-        .project-title { font-size: 1.4rem; color: #fff; margin-bottom: 1rem; }
-        .project-summary { color: var(--text-muted); font-size: 0.95rem; flex-grow: 1; margin-bottom: 1.5rem; }
-        
-        .tech-tags { display: flex; flex-wrap: wrap; gap: 8px; }
-        .tech-tag {
-            background: rgba(6, 182, 212, 0.1);
-            color: var(--accent-cyan);
-            padding: 4px 10px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-family: 'JetBrains Mono', monospace;
-            border: 1px solid rgba(6, 182, 212, 0.2);
-        }
-
-        /* --- SKILLS & EDU GRID --- */
-        .info-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 2rem;
-        }
-
-        .edu-list li {
-            list-style: none;
-            margin-bottom: 1.5rem;
-        }
-        .edu-title { font-weight: 600; color: #fff; }
-        .edu-school { color: var(--text-muted); font-size: 0.9rem; }
-
-        @media (max-width: 768px) { .info-grid { grid-template-columns: 1fr; } }
-
-        /* --- MODAL --- */
-        .modal {
-            display: none; position: fixed; inset: 0;
-            background: rgba(15, 23, 42, 0.85); backdrop-filter: blur(8px);
-            z-index: 1000; justify-content: center; align-items: center;
-        }
-        .modal.show { display: flex; }
-        .modal-content {
-            background: #1e293b; border: 1px solid var(--card-border);
-            border-radius: 16px; padding: 2.5rem; max-width: 750px; width: 95%;
-            max-height: 85vh; overflow-y: auto; position: relative;
-        }
-        .close-btn {
-            position: absolute; top: 15px; right: 20px;
-            background: rgba(255,255,255,0.1); border: none; color: #fff;
-            width: 30px; height: 30px; border-radius: 50%; cursor: pointer;
-        }
-
-        /* --- REVEAL ANIMATION --- */
-        .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s ease-out; }
-        .reveal.active { opacity: 1; transform: translateY(0); }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background-color: var(--bg); color: var(--text); font-family: '72', 'Inter', sans-serif; line-height: 1.5; -webkit-font-smoothing: antialiased; }
+        .container { max-width: 900px; margin: 0 auto; padding: 4rem 2rem; }
+        header { text-align: center; margin-bottom: 5rem; }
+        .profile-pic { width: 120px; height: 120px; border-radius: 40px; object-fit: cover; margin-bottom: 1.5rem; border: 1px solid var(--border); }
+        h1 { font-size: 2.5rem; font-weight: 800; letter-spacing: -0.03em; margin-bottom: 0.5rem; }
+        .tagline { font-size: 1.1rem; color: var(--text-light); font-weight: 400; margin-bottom: 2rem; }
+        .contact-info { display: flex; justify-content: center; gap: 1.5rem; flex-wrap: wrap; font-size: 0.9rem; }
+        .contact-info a { color: var(--text); text-decoration: none; font-weight: 500; display: flex; align-items: center; gap: 6px; transition: color 0.2s; }
+        .contact-info a:hover { color: var(--accent); }
+        section { margin-bottom: 5rem; }
+        .section-label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--accent); font-weight: 700; margin-bottom: 1.5rem; display: block; }
+        .experience-item { margin-bottom: 3rem; }
+        .exp-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 0.75rem; }
+        .exp-title { font-size: 1.25rem; font-weight: 700; }
+        .exp-company { color: var(--accent); font-weight: 600; }
+        .exp-date { font-size: 0.85rem; color: var(--text-light); }
+        .exp-list { list-style: none; color: var(--text-light); font-size: 1rem; }
+        .exp-list li { position: relative; padding-left: 1.5rem; margin-bottom: 0.75rem; }
+        .exp-list li::before { content: "—"; position: absolute; left: 0; color: var(--border); }
+        .exp-list strong { color: var(--text); font-weight: 600; }
+        .projects-list { display: grid; grid-template-columns: 1fr; gap: 1.5rem; }
+        .project-card { padding: 1.5rem; border: 1px solid var(--border); border-radius: 12px; cursor: pointer; transition: all 0.2s ease; }
+        .project-card:hover { border-color: var(--accent); background-color: var(--card-hover); transform: translateY(-2px); }
+        .project-title { font-size: 1.1rem; font-weight: 700; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 8px; }
+        .project-desc { font-size: 0.95rem; color: var(--text-light); }
+        .modal { display: none; position: fixed; inset: 0; background: rgba(0, 0, 0, 0.4); backdrop-filter: blur(4px); z-index: 1000; justify-content: center; align-items: center; padding: 1rem; }
+        .modal-content { background: var(--bg); border-radius: 16px; padding: 2.5rem; max-width: 650px; width: 100%; max-height: 90vh; overflow-y: auto; position: relative; border: 1px solid var(--border); }
+        .close-btn { position: absolute; top: 1.5rem; right: 1.5rem; background: none; border: none; font-size: 1.5rem; color: var(--text-light); cursor: pointer; }
+        @media (max-width: 640px) { .exp-header { flex-direction: column; gap: 0.25rem; } h1 { font-size: 2rem; } .container { padding-top: 2rem; } }
     </style>
 </head>
 <body>
-
-    <div class="glow-circle glow-top"></div>
-    <div class="glow-circle glow-bottom"></div>
-
-    <header>
-        <img src="./1767795222084.png" alt="Diego A. Velazquez" class="profile-pic reveal">
-        <h1 class="reveal">Diego A. Velazquez</h1>
-        <div class="typing-container reveal" id="typing-text"></div>
-        
-        <div class="contact-links reveal">
-            <a href="mailto:da.velazquez89@gmail.com"><span>📧</span> da.velazquez89@gmail.com</a>
-            <a href="https://wa.me/528135687469" target="_blank" rel="noopener noreferrer"><span>📱</span> +52 81 3568 7469</a>
-            <a href="https://www.linkedin.com/in/diegvel/" target="_blank" rel="noopener noreferrer"><span>💼</span> LinkedIn</a>
-            <a href="https://github.com/diegovsalas" target="_blank" rel="noopener noreferrer"><span>💻</span> GitHub</a>
-        </div>
-    </header>
-
     <div class="container">
-        
-        <section class="content-section reveal">
-            <h2 class="section-title">Experiencia Profesional</h2>
-            <div class="glass-card">
-                <div class="timeline">
-                    
-                    <div class="job-item">
-                        <div class="job-title">Gerente de Customer Experience</div>
-                        <div class="job-company">Avantex</div>
-                        <div class="job-date">Abril 2026 - Actualidad</div>
-                        <ul class="job-bullets">
-                            <li><strong>Estrategia y Rentabilidad:</strong> Dirección de la estrategia integral de CX en todas las unidades de negocio para impulsar la retención a largo plazo y potenciar el crecimiento de los ingresos (NRR).</li>
-                            <li><strong>Gobernanza Operativa:</strong> Diseño del customer journey y establecimiento de protocolos de servicio para monitorear métricas clave como NPS y CSAT, asegurando la excelencia operativa y la calidad en más de <strong>2,700 servicios mensuales</strong>.</li>
-                            <li><strong>Transformación Digital:</strong> Liderazgo en la agenda de innovación tecnológica mediante la orquestación de proyectos estratégicos para la automatización de procesos.</li>
-                            <li><strong>Liderazgo y Relaciones de Alto Nivel:</strong> Desarrollo del liderazgo en equipos directos (Coordinadores de CX y KAMs) y gestión operativa como principal punto de escalación para afianzar el relacionamiento comercial en cuentas críticas.</li>
-                        </ul>
-                    </div>
+        <header>
+            <img src="./1767795222084.png" alt="Diego A. Velazquez" class="profile-pic">
+            <h1>Diego A. Velazquez</h1>
+            <p class="tagline">Head of CX & CC | Business Strategy | AI & Revenue Operations</p>
+            <div class="contact-info">
+                <a href="mailto:da.velazquez89@gmail.com">da.velazquez89@gmail.com</a>
+                <a href="https://wa.me/528135687469" target="_blank">+52 81 3568 7469</a>
+                <a href="https://www.linkedin.com/in/diegvel/" target="_blank">LinkedIn</a>
+                <a href="https://github.com/diegovsalas" target="_blank">GitHub</a>
+            </div>
+        </header>
 
-                    <div class="job-item">
-                        <div class="job-title">Head of CX & CC (Key Accounts)</div>
-                        <div class="job-company">Avantex</div>
-                        <div class="job-date">Octubre 2024 - Marzo 2026</div>
-                        <ul class="job-bullets">
-                            <li><strong>Liderazgo y Estructura:</strong> Creación y dirección desde cero del departamento de Cuentas Clave, diseñando un modelo de atención de alta disponibilidad para las 24 cuentas más grandes de la compañía.</li>
-                            <li><strong>Estrategia Omnicanal:</strong> Implementación del ecosistema de atención digital (WhatsApp Cloud API y sistema de tickets) logrando una resolución de incidencias un 40% más eficiente.</li>
-                        </ul>
-                    </div>
-
-                    <div class="job-item">
-                        <div class="job-title">Customer Success Manager Sr. (CSM Sr.)</div>
-                        <div class="job-company">Lapzo</div>
-                        <div class="job-date">Abril 2023 - Octubre 2024</div>
-                        <ul class="job-bullets">
-                            <li><strong>Retención de Alto Valor:</strong> Gestión del ciclo de vida de clientes Tier 1, logrando un <strong>95% de retención anual</strong> mediante la automatización de procesos de renovación y atención.</li>
-                            <li><strong>Crecimiento de Cartera:</strong> Ejecución de estrategias de venta consultiva para identificar y cerrar oportunidades de expansión dentro de la cartera base.</li>
-                        </ul>
-                    </div>
-
-                    <div class="job-item">
-                        <div class="job-title">CX Account Manager</div>
-                        <div class="job-company">Clear Mechanic</div>
-                        <div class="job-date">Abril 2022 - Abril 2023</div>
-                        <ul class="job-bullets">
-                            <li><strong>Adopción Tecnológica:</strong> Aseguré la adopción total del producto mediante el diseño de flujos de CX centrados en el usuario, manteniendo índices CSAT superiores al 90%.</li>
-                        </ul>
-                    </div>
-
-                    <div class="job-item">
-                        <div class="job-title">Consultor Microsoft Dynamics AX (ERP)</div>
-                        <div class="job-company">GCG</div>
-                        <div class="job-date">2016 - Abril 2022</div>
-                        <ul class="job-bullets">
-                            <li><strong>Arquitectura de Procesos:</strong> Liderazgo en implementaciones de sistemas ERP complejos, optimizando la operación técnica y financiera de clientes corporativos.</li>
-                        </ul>
-                    </div>
-
+        <section>
+            <span class="section-label">Experiencia Ejecutiva</span>
+            
+            <div class="experience-item">
+                <div class="exp-header">
+                    <span class="exp-title">Head of CX & CC <span class="exp-company">@ Avantex</span></span>
+                    <span class="exp-date">Oct 2024 — Presente</span>
                 </div>
+                <ul class="exp-list">
+                    <li><strong>Revenue Protection:</strong> Diseñé desde cero el departamento de Key Accounts, blindando la relación comercial de las 24 cuentas de mayor facturación mediante un modelo de alta disponibilidad.</li>
+                    <li><strong>Digital Scalability:</strong> Transformé el modelo de atención tradicional en un ecosistema omnicanal (WhatsApp Cloud API + Tickets), incrementando la velocidad de resolución en un <strong>40%</strong> y garantizando trazabilidad total.</li>
+                    <li><strong>Data Strategy & Churn Mitigation:</strong> Implementé la gobernanza de KPIs (CSAT/NPS) vinculados a dashboards financieros, permitiendo detectar y mitigar riesgos de fuga en cuentas AAA de forma proactiva.</li>
+                </ul>
+            </div>
+
+            <div class="experience-item">
+                <div class="exp-header">
+                    <span class="exp-title">Customer Success Manager Sr. <span class="exp-company">@ Lapzo</span></span>
+                    <span class="exp-date">Abr 2023 — Oct 2024</span>
+                </div>
+                <ul class="exp-list">
+                    <li><strong>LTV Optimization:</strong> Mantuve una <strong>retención anual del 95%</strong> en clientes Tier 1 mediante la automatización inteligente de ciclos de renovación.</li>
+                    <li><strong>Expansion Revenue:</strong> Ejecuté estrategias de venta consultiva para elevar el Net Revenue Retention (NRR) mediante el cierre de nuevas oportunidades dentro de la base instalada.</li>
+                </ul>
+            </div>
+
+            <div class="experience-item">
+                <div class="exp-header">
+                    <span class="exp-title">CX Account Manager <span class="exp-company">@ Clear Mechanic</span></span>
+                    <span class="exp-date">Abr 2022 — Abr 2023</span>
+                </div>
+                <ul class="exp-list">
+                    <li><strong>Product Adoption:</strong> Aseguré el Product-Market Fit mediante el diseño de flujos de CX que elevaron los índices CSAT por encima del <strong>90%</strong>.</li>
+                </ul>
+            </div>
+
+            <div class="experience-item">
+                <div class="exp-header">
+                    <span class="exp-title">Consultor Microsoft Dynamics AX <span class="exp-company">@ GCG</span></span>
+                    <span class="exp-date">2016 — 2022</span>
+                </div>
+                <ul class="exp-list">
+                    <li><strong>Cross-selling Performance:</strong> Alcancé un <strong>crecimiento anual del 120%</strong> en ventas adicionales mediante el diagnóstico técnico y la optimización de procesos ERP complejos.</li>
+                </ul>
             </div>
         </section>
 
-        <section class="content-section reveal" style="margin-top: 4rem;">
-            <h2 class="section-title">Laboratorio de Soluciones AI & Code</h2>
-            <div class="projects-grid">
-                <div class="glass-card project-card" onclick="openModal('modal5')">
-                    <h3 class="project-title">🧠 Leads Manager CRM</h3>
-                    <p class="project-summary">CRM comercial in-house que automatiza el flujo omnicanal (Meta/WA) para 5 unidades de negocio.</p>
-                    <div class="tech-tags">
-                        <span class="tech-tag">Flask</span> <span class="tech-tag">Supabase</span> <span class="tech-tag">WA Cloud API</span>
-                    </div>
+        <section>
+            <span class="section-label">Portafolio de Soluciones</span>
+            <div class="projects-list">
+                <div class="project-card">
+                    <div class="project-title">🧠 Leads Manager CRM</div>
+                    <p class="project-desc">Sistema de Revenue Operations con enrutamiento automático y trazabilidad de punta a punta.</p>
                 </div>
-                <div class="glass-card project-card" onclick="openModal('modal2')">
-                    <h3 class="project-title">💬 Bot & Kanban CX</h3>
-                    <p class="project-summary">Motor de atención por WhatsApp con enrutamiento inteligente y tablero operativo Drag & Drop.</p>
-                    <div class="tech-tags">
-                        <span class="tech-tag">n8n</span> <span class="tech-tag">Webhooks</span> <span class="tech-tag">Airtable</span>
-                    </div>
-                </div>
-                <div class="glass-card project-card" onclick="openModal('modal1')">
-                    <h3 class="project-title">🌱 Planificador AI</h3>
-                    <p class="project-summary">Plataforma de visión computacional para el diseño estratégico de coberturas olfativas.</p>
-                    <div class="tech-tags">
-                        <span class="tech-tag">Python</span> <span class="tech-tag">Gemini Vision</span> <span class="tech-tag">Streamlit</span>
-                    </div>
+                <div class="project-card">
+                    <div class="project-title">🌱 Aromatex AI Planifier</div>
+                    <p class="project-desc">Proptech de visión computacional para optimización de presupuestos técnicos.</p>
                 </div>
             </div>
         </section>
-
-        <section class="content-section reveal" style="margin-top: 4rem;">
-            <h2 class="section-title">Formación Académica</h2>
-            <div class="info-grid">
-                <div class="glass-card">
-                    <ul class="edu-list">
-                        <li>
-                            <div class="edu-title">Licenciado en Psicología Empresarial</div>
-                            <div class="edu-school">Tec Milenio (2012 - 2017)</div>
-                        </li>
-                        <li>
-                            <div class="edu-title">Licenciatura en Administración</div>
-                            <div class="edu-school">FACPYA, UANL (2007 - 2012)</div>
-                        </li>
-                    </ul>
-                </div>
-                <div class="glass-card">
-                    <h3 style="color: #fff; margin-bottom: 1rem;">Certificaciones Data</h3>
-                    <ul class="edu-list">
-                        <li>
-                            <div class="edu-title">Business Data Intelligence / Power BI Big Data</div>
-                            <div class="edu-school">Tecnológico de Monterrey (2021)</div>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </section>
-
     </div>
-
-    <div id="modal5" class="modal">
-        <div class="modal-content">
-            <button class="close-btn" onclick="closeModal('modal5')">✕</button>
-            <h2 style="color:var(--accent-cyan);">Leads Manager CRM</h2>
-            <p style="margin-top:1rem; color:var(--text-muted);">
-                Este proyecto representa el "Cerebro de Información" de la empresa. Captura prospectos automáticamente desde Meta Ads, los procesa en un backend de Python y los distribuye mediante un algoritmo Round-Robin a los asesores comerciales, enviando notificaciones instantáneas por WhatsApp. Es la pieza central de la estrategia omnicanal de ventas.
-            </p>
-        </div>
-    </div>
-
-    <script>
-        const textToType = "Gerente de CX | Omnichannel Strategist | AI Developer";
-        const typingElement = document.getElementById('typing-text');
-        let index = 0;
-        function type() {
-            if (index < textToType.length) {
-                typingElement.innerHTML += textToType.charAt(index);
-                index++;
-                setTimeout(type, 50);
-            }
-        }
-        setTimeout(type, 500);
-
-        function reveal() {
-            var reveals = document.querySelectorAll(".reveal");
-            for (var i = 0; i < reveals.length; i++) {
-                var windowHeight = window.innerHeight;
-                var elementTop = reveals[i].getBoundingClientRect().top;
-                if (elementTop < windowHeight - 100) { reveals[i].classList.add("active"); }
-            }
-        }
-        window.addEventListener("scroll", reveal);
-        reveal();
-
-        function openModal(modalId) { document.getElementById(modalId).classList.add('show'); }
-        function closeModal(modalId) { document.getElementById(modalId).classList.remove('show'); }
-    </script>
 </body>
 </html>
