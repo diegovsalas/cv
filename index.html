@@ -31,9 +31,8 @@
         
         .container { max-width: 900px; margin: 0 auto; padding: 4rem 2rem; }
         
-        /* HEADER */
         header { text-align: center; margin-bottom: 4rem; }
-        .profile-pic { width: 120px; height: 120px; border-radius: 40px; object-fit: cover; margin-bottom: 1.5rem; border: 1px solid var(--border); }
+        .profile-pic { width: 120px; height: 120px; border-radius: 40px; object-fit: cover; margin-bottom: 1.5rem; border: 1px solid var(--border); background: var(--border); }
         
         h1 { font-size: 2.5rem; font-weight: 800; letter-spacing: -0.03em; margin-bottom: 0.5rem; }
         .tagline { font-size: 1.1rem; color: var(--text-light); font-weight: 500; margin-bottom: 2rem; }
@@ -42,7 +41,6 @@
         .contact-info a { color: var(--text); text-decoration: none; font-weight: 500; transition: color 0.2s; display: flex; align-items: center; gap: 5px;}
         .contact-info a:hover { color: var(--accent); }
 
-        /* BOTON DESCARGA */
         .download-btn {
             display: inline-flex;
             align-items: center;
@@ -63,20 +61,9 @@
         }
         .download-btn:hover { transform: translateY(-2px); box-shadow: 0 20px 25px -5px rgba(79, 70, 229, 0.4); }
 
-        /* Estilos para impresión: oculta lo que no debe salir en el PDF */
-        @media print {
-            .download-btn, .project-card { cursor: default; }
-            .download-btn { display: none; }
-            .modal { display: none !important; }
-            body { background: white; color: black; }
-            .container { padding: 1rem; }
-        }
-
-        /* SECCIONES GENERALES */
         section { margin-bottom: 4rem; }
         .section-label { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--accent); font-weight: 800; margin-bottom: 2rem; display: block; border-bottom: 2px solid var(--border); padding-bottom: 0.5rem;}
         
-        /* EXPERIENCIA */
         .experience-item { margin-bottom: 2.5rem; }
         .exp-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 0.5rem; flex-wrap: wrap; gap: 0.5rem;}
         .exp-title { font-size: 1.2rem; font-weight: 700; }
@@ -88,7 +75,6 @@
         .exp-list li::before { content: "—"; position: absolute; left: 0; color: var(--border); font-weight: bold;}
         .exp-list strong { color: var(--text); font-weight: 600; }
 
-        /* PROYECTOS */
         .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
         .project-card { padding: 1.5rem; border: 1px solid var(--border); border-radius: 12px; cursor: pointer; transition: all 0.2s ease; background: transparent; }
         .project-card:hover { border-color: var(--accent); background-color: var(--card-hover); transform: translateY(-3px);}
@@ -97,12 +83,10 @@
         
         .tech-pill { display: inline-block; background: rgba(79, 70, 229, 0.1); color: var(--accent); padding: 4px 10px; border-radius: 6px; font-size: 0.75rem; font-weight: 700; margin-right: 5px; margin-bottom: 5px;}
 
-        /* EDUCACION */
         .edu-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; }
         .edu-item h4 { font-size: 1.05rem; font-weight: 700; margin-bottom: 0.2rem; color: var(--text);}
         .edu-item p { font-size: 0.9rem; color: var(--text-light); }
 
-        /* MODALES */
         .modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.6); backdrop-filter: blur(4px); z-index: 1000; justify-content: center; align-items: center; padding: 1rem; }
         .modal-content { background: var(--bg); border-radius: 16px; padding: 2.5rem; max-width: 700px; width: 100%; max-height: 85vh; overflow-y: auto; position: relative; border: 1px solid var(--border); box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);}
         .close-btn { position: absolute; top: 1.2rem; right: 1.5rem; background: var(--border); border: none; font-size: 1.2rem; color: var(--text); cursor: pointer; border-radius: 50%; width: 35px; height: 35px; display: flex; align-items: center; justify-content: center; transition: background 0.2s;}
@@ -115,33 +99,58 @@
         .modal li { margin-bottom: 0.5rem;}
         .modal strong { color: var(--text); }
 
-        /* TOAST de notificación */
-        .toast {
-            position: fixed;
-            bottom: 2rem;
-            left: 50%;
-            transform: translateX(-50%) translateY(100px);
-            background: var(--text);
-            color: var(--bg);
-            padding: 1rem 1.5rem;
-            border-radius: 12px;
-            font-weight: 600;
-            font-size: 0.9rem;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
-            opacity: 0;
-            transition: all 0.3s ease;
-            z-index: 2000;
-            max-width: 90%;
-            text-align: center;
+        /* ============================================
+           MODO IMPRESIÓN: aquí se controla cómo se ve el PDF
+           ============================================ */
+        @media print {
+            @page { 
+                size: A4; 
+                margin: 1.5cm; 
+            }
+            
+            body { 
+                background: white !important; 
+                color: black !important; 
+                font-size: 11pt;
+            }
+            
+            .container { padding: 0; max-width: 100%; }
+            
+            /* Ocultar elementos que no van en el PDF */
+            .download-btn, .modal { display: none !important; }
+            
+            /* Forzar colores legibles en impresión */
+            .tagline, .exp-list, .project-desc, .edu-item p, .exp-date { 
+                color: #555 !important; 
+            }
+            .exp-company, .section-label, .project-title, .tech-pill { 
+                color: #4f46e5 !important; 
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+            .tech-pill { 
+                background: #eef2ff !important; 
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+            
+            /* Evitar cortes feos en el PDF */
+            .experience-item, .project-card, .edu-item { 
+                page-break-inside: avoid; 
+            }
+            section { page-break-before: auto; }
+            header { margin-bottom: 2rem; }
+            
+            .project-card { cursor: default; border: 1px solid #ddd; }
+            a { color: black !important; text-decoration: none; }
         }
-        .toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
     </style>
 </head>
 <body>
     <div class="container">
         
         <header>
-            <img src="./1767795222084.png" alt="Diego A. Velazquez" class="profile-pic" onerror="this.style.display='none'">
+            <img src="./1767795222084.png" alt="Diego A. Velazquez" class="profile-pic">
             <h1>Diego A. Velazquez</h1>
             <p class="tagline">Gerente de Customer Experience | Omnichannel Strategist | AI Developer</p>
             
@@ -151,8 +160,7 @@
                 <a href="https://www.linkedin.com/in/diegvel/" target="_blank">💼 LinkedIn</a>
             </div>
 
-            <!-- Botón mejorado: ahora es un <button>, no un <a> -->
-            <button type="button" class="download-btn" onclick="descargarCV()">
+            <button type="button" class="download-btn" onclick="window.print()">
                 📥 Descargar CV (PDF)
             </button>
         </header>
@@ -163,7 +171,7 @@
             <div class="experience-item">
                 <div class="exp-header">
                     <span class="exp-title">Gerente de Customer Experience <span class="exp-company">@ Avantex</span></span>
-                    <span class="exp-date">Abr 2026 — Presente</span>
+                    <span class="exp-date">Oct 2025 — Presente</span>
                 </div>
                 <ul class="exp-list">
                     <li><strong>Estrategia y Rentabilidad:</strong> Dirección de la estrategia integral de CX en todas las unidades de negocio para impulsar la retención a largo plazo y potenciar el crecimiento de los ingresos (NRR).</li>
@@ -176,7 +184,7 @@
             <div class="experience-item">
                 <div class="exp-header">
                     <span class="exp-title">Head of CX & CC (Key Accounts) <span class="exp-company">@ Avantex</span></span>
-                    <span class="exp-date">Oct 2024 — Mar 2026</span>
+                    <span class="exp-date">Oct 2024 — Sep 2025</span>
                 </div>
                 <ul class="exp-list">
                     <li><strong>Revenue Protection:</strong> Creación del departamento de Key Accounts, blindando la relación comercial de las 24 cuentas de mayor facturación mediante un modelo de alta disponibilidad.</li>
@@ -287,23 +295,19 @@
         </section>
     </div>
 
-    <!-- MODALES -->
     <div id="modal1" class="modal" onclick="closeModalOnEmpty(event)">
         <div class="modal-content">
             <button class="close-btn" onclick="closeModal('modal1')">✕</button>
             <h2>Leads Manager CRM</h2>
             <p style="margin-bottom: 1rem;"><span class="tech-pill">Flask</span> <span class="tech-pill">Supabase (PostgreSQL)</span> <span class="tech-pill">Meta Webhooks</span></p>
-            
             <h4>Arquitectura del Flujo</h4>
             <p>Plataforma in-house desarrollada con Flask (Python) y base de datos relacional en Supabase. Captura prospectos automáticamente mediante Webhooks de Meta Ads y WhatsApp Cloud API, renderizando un tablero Kanban utilizando plantillas Jinja2 y SocketIO.</p>
-            
             <h4>Complejidad Técnica</h4>
             <ul>
                 <li>Arquitectura de base de datos diseñada para segmentar métricas de 5 unidades de negocio concurrentes.</li>
                 <li>Algoritmo de <strong>asignación Round-Robin</strong> que distribuye leads basado en especialidad y disponibilidad.</li>
                 <li>Bot interno integrado para que el equipo comercial actualice etapas directamente desde WhatsApp.</li>
             </ul>
-
             <h4>Impacto en CX / Negocio</h4>
             <p>Consolidó la prospección en un panel de control único. Otorgó visibilidad financiera instantánea cruzando gasto publicitario (CPA/CPL) con el embudo de conversión para revelar el ROI comercial real.</p>
         </div>
@@ -314,17 +318,14 @@
             <button class="close-btn" onclick="closeModal('modal2')">✕</button>
             <h2>Bot Omnicanal & Kanban CX</h2>
             <p style="margin-bottom: 1rem;"><span class="tech-pill">n8n</span> <span class="tech-pill">Meta Cloud API</span> <span class="tech-pill">Airtable</span></p>
-
             <h4>Arquitectura del Flujo</h4>
             <p>Orquestador lógico basado en n8n que evalúa mensajes entrantes vía Webhooks de Meta. Utiliza lógica condicional para enrutamiento y persiste la información mediante APIs REST hacia una base relacional (Airtable), alimentando un Kanban Frontend.</p>
-
             <h4>Complejidad Técnica</h4>
             <ul>
                 <li>Gestión de <strong>payloads asíncronos</strong> para asegurar que el bot no bloquee la recepción masiva de mensajes.</li>
                 <li>Diseño de enrutamiento condicional avanzado para múltiples ramas operativas.</li>
                 <li>Implementación de disparos automatizados de encuestas (CSAT) basado en cambios de estado de DB.</li>
             </ul>
-
             <h4>Impacto en CX / Negocio</h4>
             <p>Reducción drástica en tiempos de primera respuesta (SLA). El tablero visual empoderó a los agentes operativos, eliminando el "caos" de las bandejas de WhatsApp convencionales.</p>
         </div>
@@ -335,17 +336,14 @@
             <button class="close-btn" onclick="closeModal('modal3')">✕</button>
             <h2>Planificador Estratégico AI</h2>
             <p style="margin-bottom: 1rem;"><span class="tech-pill">Python</span> <span class="tech-pill">Streamlit</span> <span class="tech-pill">Gemini Vision</span></p>
-
             <h4>Arquitectura del Flujo</h4>
             <p>El sistema codifica planos arquitectónicos (PDF/JPG) y los envía a Gemini Vision mediante Prompts Estructurados. Retorna un JSON con coordenadas sugeridas que Streamlit renderiza dinámicamente sobre un Canvas interactivo.</p>
-
             <h4>Complejidad Técnica</h4>
             <ul>
                 <li>Manejo avanzado de <strong>session_state</strong> para persistir coordenadas de equipos sin recargar el DOM.</li>
                 <li>Algoritmo matemático de escalamiento interactivo: Píxeles a metros reales.</li>
                 <li>Cálculo volumétrico dinámico ajustando radios de cobertura en tiempo real.</li>
             </ul>
-
             <h4>Impacto en CX / Negocio</h4>
             <p>Profesionalizó la preventa B2B. Los asesores generan propuestas técnicas exportables en minutos, incrementando la confianza técnica y el porcentaje de cierre.</p>
         </div>
@@ -356,17 +354,14 @@
             <button class="close-btn" onclick="closeModal('modal4')">✕</button>
             <h2>Sincro IA (App Store)</h2>
             <p style="margin-bottom: 1rem;"><span class="tech-pill">SwiftUI</span> <span class="tech-pill">EventKit</span> <span class="tech-pill">Gemini API</span></p>
-
             <h4>Arquitectura del Flujo</h4>
             <p>App nativa iOS bajo el patrón MVVM. Interactúa con EventKit para leer agendas, recolecta volcados mentales (Brain Dumps) hacia la API de Gemini, y retorna matrices de tareas inyectadas al calendario.</p>
-
             <h4>Complejidad Técnica</h4>
             <ul>
                 <li>Algoritmo de <strong>resolución de conflictos temporales</strong> para asegurar que la IA no empalme eventos existentes.</li>
                 <li>Concurrencia segura (async/await) para mantener la UI fluida.</li>
                 <li>Almacenamiento persistente local utilizando SwiftData.</li>
             </ul>
-
             <h4>Impacto en CX / Negocio</h4>
             <p>Desarrollo y publicación comercial exitosa en la App Store de Apple, superando los más altos estándares de privacidad y diseño UX para perfiles neurodivergentes.</p>
         </div>
@@ -377,84 +372,20 @@
             <button class="close-btn" onclick="closeModal('modal5')">✕</button>
             <h2>CRM & Dashboard Financiero</h2>
             <p style="margin-bottom: 1rem;"><span class="tech-pill">React</span> <span class="tech-pill">Hooks</span> <span class="tech-pill">CSS Grid</span></p>
-
             <h4>Arquitectura del Flujo</h4>
             <p>Single Page Application (SPA) enfocada en Client-Side Rendering. Un módulo procesa archivos CSV masivos en memoria y distribuye el estado global reaccionando en tiempo real a los filtros de vista.</p>
-
             <h4>Complejidad Técnica</h4>
             <ul>
                 <li>Optimización de renderizado (useMemo/useCallback) para cálculos pesados de MRR, ARR y MoM.</li>
                 <li>Algoritmo de agrupación multidimensional indexando por Cliente, KAM, Trimestre y UEN.</li>
                 <li>Motor de lógica de negocio para el cálculo de bonos comisionables con variables dinámicas.</li>
             </ul>
-
             <h4>Impacto en CX / Negocio</h4>
             <p>Reemplazó ecosistemas lentos de hojas de cálculo por una interfaz única. Otorga visibilidad financiera instantánea a la gerencia para el control de Key Accounts y cumplimiento de cuotas.</p>
         </div>
     </div>
 
-    <!-- Toast para notificaciones -->
-    <div id="toast" class="toast"></div>
-
     <script>
-        // ========================================
-        // CONFIGURACIÓN
-        // ========================================
-        // Cambia este valor por el nombre EXACTO de tu archivo PDF
-        const NOMBRE_PDF = 'CV_Diego_Velazquez_2026.pdf';
-
-        // ========================================
-        // DESCARGA DEL CV
-        // ========================================
-        async function descargarCV() {
-            // Paso 1: Verificamos si el PDF existe en el servidor
-            try {
-                // fetch con HEAD: solo pregunta "¿existe?" sin descargar el archivo entero
-                const respuesta = await fetch(NOMBRE_PDF, { method: 'HEAD' });
-
-                if (respuesta.ok) {
-                    // Paso 2a: SÍ existe → forzamos la descarga
-                    const link = document.createElement('a');
-                    link.href = NOMBRE_PDF;
-                    link.download = NOMBRE_PDF;
-                    document.body.appendChild(link);
-                    link.click();
-                    document.body.removeChild(link);
-                    mostrarToast('✅ Descarga iniciada');
-                } else {
-                    // Paso 2b: NO existe → ofrecemos plan B (imprimir como PDF)
-                    planB();
-                }
-            } catch (error) {
-                // Si fetch falla (ej. abriste el archivo con doble click sin servidor)
-                console.warn('No se pudo verificar el PDF:', error);
-                planB();
-            }
-        }
-
-        // Plan B: usar el diálogo de impresión del navegador para generar el PDF
-        function planB() {
-            const usar = confirm(
-                '⚠️ El archivo PDF no se encontró en el servidor.\n\n' +
-                '¿Quieres generar un PDF imprimiendo esta página?\n' +
-                '(En el diálogo de impresión, elige "Guardar como PDF")'
-            );
-            if (usar) window.print();
-        }
-
-        // ========================================
-        // TOAST (notificación flotante)
-        // ========================================
-        function mostrarToast(mensaje) {
-            const toast = document.getElementById('toast');
-            toast.textContent = mensaje;
-            toast.classList.add('show');
-            setTimeout(() => toast.classList.remove('show'), 3000);
-        }
-
-        // ========================================
-        // MODALES
-        // ========================================
         function openModal(id) { 
             document.getElementById(id).style.display = 'flex'; 
             document.body.style.overflow = 'hidden';
@@ -472,7 +403,6 @@
             }
         }
 
-        // Cerrar modales con la tecla Escape (mejora de UX)
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape') {
                 document.querySelectorAll('.modal').forEach(m => m.style.display = 'none');
