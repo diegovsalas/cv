@@ -100,26 +100,65 @@
         .modal strong { color: var(--text); }
 
         /* ============================================
-           MODO IMPRESIÓN: aquí se controla cómo se ve el PDF
+           MODO IMPRESIÓN: compactado para caber en 2 páginas
            ============================================ */
         @media print {
             @page { 
                 size: A4; 
-                margin: 1.5cm; 
+                margin: 1cm;  /* márgenes reducidos (antes 1.5cm) */
             }
             
             body { 
                 background: white !important; 
                 color: black !important; 
-                font-size: 11pt;
+                font-size: 9.5pt;       /* fuente más chica */
+                line-height: 1.35;      /* interlineado más apretado */
             }
             
             .container { padding: 0; max-width: 100%; }
             
-            /* Ocultar elementos que no van en el PDF */
+            /* Ocultar lo que no va en el PDF */
             .download-btn, .modal { display: none !important; }
+
+            /* HEADER compactado */
+            header { margin-bottom: 1rem; }
+            .profile-pic { width: 75px; height: 75px; margin-bottom: 0.4rem; border-radius: 20px; }
+            h1 { font-size: 1.6rem; margin-bottom: 0.2rem; }
+            .tagline { font-size: 0.85rem; margin-bottom: 0.6rem; }
+            .contact-info { gap: 0.8rem; font-size: 0.75rem; margin-bottom: 0; }
+
+            /* SECCIONES compactadas */
+            section { margin-bottom: 1rem; }
+            .section-label { font-size: 0.7rem; margin-bottom: 0.7rem; padding-bottom: 0.2rem; }
             
-            /* Forzar colores legibles en impresión */
+            /* EXPERIENCIA compactada */
+            .experience-item { margin-bottom: 0.8rem; }
+            .exp-title { font-size: 0.95rem; }
+            .exp-date { font-size: 0.75rem; }
+            .exp-list { font-size: 0.82rem; }
+            .exp-list li { margin-bottom: 0.2rem; padding-left: 1rem; }
+
+            /* PROYECTOS en grid de 2 columnas más compacto */
+            .projects-grid { 
+                grid-template-columns: repeat(2, 1fr); 
+                gap: 0.6rem; 
+            }
+            .project-card { padding: 0.7rem; border: 1px solid #ddd; cursor: default; }
+            .project-title { font-size: 0.85rem; margin-bottom: 0.3rem; }
+            .project-desc { font-size: 0.75rem; margin-bottom: 0.4rem; }
+            .tech-pill { 
+                font-size: 0.65rem; 
+                padding: 2px 6px; 
+                margin-right: 3px; 
+                margin-bottom: 3px;
+            }
+
+            /* EDUCACIÓN compactada */
+            .edu-grid { gap: 0.8rem; }
+            .edu-item h4 { font-size: 0.85rem; }
+            .edu-item p { font-size: 0.75rem; }
+            
+            /* Colores conservados en impresión */
             .tagline, .exp-list, .project-desc, .edu-item p, .exp-date { 
                 color: #555 !important; 
             }
@@ -134,14 +173,11 @@
                 print-color-adjust: exact;
             }
             
-            /* Evitar cortes feos en el PDF */
+            /* Evitar cortes feos */
             .experience-item, .project-card, .edu-item { 
                 page-break-inside: avoid; 
             }
-            section { page-break-before: auto; }
-            header { margin-bottom: 2rem; }
             
-            .project-card { cursor: default; border: 1px solid #ddd; }
             a { color: black !important; text-decoration: none; }
         }
     </style>
@@ -155,7 +191,7 @@
             <p class="tagline">Gerente de Customer Experience | Omnichannel Strategist | AI Developer</p>
             
             <div class="contact-info">
-                <a href="mailto:da.velazquez89@gmail.com">📧 da.velazquez89@gmail.com</a>
+                <a href="/cdn-cgi/l/email-protection#1c787d326a79707d666d69796624255c7b717d7570327f7371">📧 <span class="__cf_email__" data-cfemail="5632377820333a372c2723332c6e6f16313b373f3a7835393b">[email&#160;protected]</span></a>
                 <a href="https://wa.me/528135687469" target="_blank">📱 +52 81 3568 7469</a>
                 <a href="https://www.linkedin.com/in/diegvel/" target="_blank">💼 LinkedIn</a>
             </div>
@@ -385,7 +421,7 @@
         </div>
     </div>
 
-    <script>
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
         function openModal(id) { 
             document.getElementById(id).style.display = 'flex'; 
             document.body.style.overflow = 'hidden';
@@ -403,12 +439,4 @@
             }
         }
 
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') {
-                document.querySelectorAll('.modal').forEach(m => m.style.display = 'none');
-                document.body.style.overflow = 'auto';
-            }
-        });
-    </script>
-</body>
-</html>
+        document.addEventListener('keydown
