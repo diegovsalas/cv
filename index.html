@@ -50,14 +50,27 @@
             background-color: var(--accent);
             color: white !important;
             padding: 0.8rem 1.8rem;
+            border: none;
             border-radius: 12px;
             font-weight: 700;
+            font-size: 0.95rem;
+            font-family: 'Inter', sans-serif;
             text-decoration: none;
+            cursor: pointer;
             transition: all 0.2s ease;
             box-shadow: 0 10px 15px -3px rgba(79, 70, 229, 0.3);
             margin-top: 1rem;
         }
         .download-btn:hover { transform: translateY(-2px); box-shadow: 0 20px 25px -5px rgba(79, 70, 229, 0.4); }
+
+        /* Estilos para impresión: oculta lo que no debe salir en el PDF */
+        @media print {
+            .download-btn, .project-card { cursor: default; }
+            .download-btn { display: none; }
+            .modal { display: none !important; }
+            body { background: white; color: black; }
+            .container { padding: 1rem; }
+        }
 
         /* SECCIONES GENERALES */
         section { margin-bottom: 4rem; }
@@ -102,13 +115,33 @@
         .modal li { margin-bottom: 0.5rem;}
         .modal strong { color: var(--text); }
 
+        /* TOAST de notificación */
+        .toast {
+            position: fixed;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: var(--text);
+            color: var(--bg);
+            padding: 1rem 1.5rem;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+            opacity: 0;
+            transition: all 0.3s ease;
+            z-index: 2000;
+            max-width: 90%;
+            text-align: center;
+        }
+        .toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
     </style>
 </head>
 <body>
     <div class="container">
         
         <header>
-            <img src="./1767795222084.png" alt="Diego A. Velazquez" class="profile-pic">
+            <img src="./1767795222084.png" alt="Diego A. Velazquez" class="profile-pic" onerror="this.style.display='none'">
             <h1>Diego A. Velazquez</h1>
             <p class="tagline">Gerente de Customer Experience | Omnichannel Strategist | AI Developer</p>
             
@@ -118,9 +151,10 @@
                 <a href="https://www.linkedin.com/in/diegvel/" target="_blank">💼 LinkedIn</a>
             </div>
 
-            <a href="CV_Diego_Velazquez_2026.pdf" class="download-btn" download>
+            <!-- Botón mejorado: ahora es un <button>, no un <a> -->
+            <button type="button" class="download-btn" onclick="descargarCV()">
                 📥 Descargar CV (PDF)
-            </a>
+            </button>
         </header>
 
         <section>
@@ -253,6 +287,7 @@
         </section>
     </div>
 
+    <!-- MODALES -->
     <div id="modal1" class="modal" onclick="closeModalOnEmpty(event)">
         <div class="modal-content">
             <button class="close-btn" onclick="closeModal('modal1')">✕</button>
@@ -358,25 +393,92 @@
         </div>
     </div>
 
+    <!-- Toast para notificaciones -->
+    <div id="toast" class="toast"></div>
+
     <script>
-        // Funciones para manejar los modales
+        // ========================================
+        // CONFIGURACIÓN
+        // ========================================
+        // Cambia este valor por el nombre EXACTO de tu archivo PDF
+        const NOMBRE_PDF = 'CV_Diego_Velazquez_2026.pdf';
+
+        // ========================================
+        // DESCARGA DEL CV
+        // ========================================
+        async function descargarCV() {
+            // Paso 1: Verificamos si el PDF existe en el servidor
+            try {
+                // fetch con HEAD: solo pregunta "¿existe?" sin descargar el archivo entero
+                const respuesta = await fetch(NOMBRE_PDF, { method: 'HEAD' });
+
+                if (respuesta.ok) {
+                    // Paso 2a: SÍ existe → forzamos la descarga
+                    const link = document.createElement('a');
+                    link.href = NOMBRE_PDF;
+                    link.download = NOMBRE_PDF;
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                    mostrarToast('✅ Descarga iniciada');
+                } else {
+                    // Paso 2b: NO existe → ofrecemos plan B (imprimir como PDF)
+                    planB();
+                }
+            } catch (error) {
+                // Si fetch falla (ej. abriste el archivo con doble click sin servidor)
+                console.warn('No se pudo verificar el PDF:', error);
+                planB();
+            }
+        }
+
+        // Plan B: usar el diálogo de impresión del navegador para generar el PDF
+        function planB() {
+            const usar = confirm(
+                '⚠️ El archivo PDF no se encontró en el servidor.\n\n' +
+                '¿Quieres generar un PDF imprimiendo esta página?\n' +
+                '(En el diálogo de impresión, elige "Guardar como PDF")'
+            );
+            if (usar) window.print();
+        }
+
+        // ========================================
+        // TOAST (notificación flotante)
+        // ========================================
+        function mostrarToast(mensaje) {
+            const toast = document.getElementById('toast');
+            toast.textContent = mensaje;
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 3000);
+        }
+
+        // ========================================
+        // MODALES
+        // ========================================
         function openModal(id) { 
             document.getElementById(id).style.display = 'flex'; 
-            document.body.style.overflow = 'hidden'; // Evita scroll en el fondo
+            document.body.style.overflow = 'hidden';
         }
         
         function closeModal(id) { 
             document.getElementById(id).style.display = 'none'; 
-            document.body.style.overflow = 'auto'; // Restaura el scroll
+            document.body.style.overflow = 'auto';
         }
         
         function closeModalOnEmpty(e) { 
-            // Cierra el modal si se hace clic fuera del recuadro blanco
             if (e.target.classList.contains('modal')) {
                 e.target.style.display = 'none';
                 document.body.style.overflow = 'auto';
             }
         }
+
+        // Cerrar modales con la tecla Escape (mejora de UX)
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                document.querySelectorAll('.modal').forEach(m => m.style.display = 'none');
+                document.body.style.overflow = 'auto';
+            }
+        });
     </script>
 </body>
 </html>
